@@ -1,0 +1,172 @@
+\documentclass{article}
+
+\usepackage{fullpage,latexsym,picinpar,amsmath,amsfonts}
+
+\input{macros.tex}
+
+\begin{document}
+
+\begin{tabbing}
+aa \= aa \= aa \= aa \= aa \= aa \= \kill
+\textbf{Andreea Haiduc} \\
+{SID: 861278062} \\
+\end{tabbing}
+
+\centerline{ \large \bf CS/MATH111 ASSIGNMENT 1}
+\centerline{due Thursday, October~16, 8AM}
+
+\vskip 0.1in
+%\noindent{\bf Individual assignment:} Problems 1 and 2.
+
+%\noindent{\bf Group assignment:} Problems 1,2 and 3.
+
+\vskip 0.2in
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Give the exact and asymptotic formula for the number $f(n)$ of
+letters ``Z" printed by Algorithm~\textsc{PrintZs} below.
+Your solution must consist of the following steps:
+%
+\begin{description}
+\item{(a)} First express $f(n)$ using a summation notation $\sum$.
+\item{(b)} Next, give a closed-form formula for $f(n)$.
+\item{(c)}  Finally, give the asymptotic value of the
+number of Z's (using the $\Theta$-notation.) Include a brief justification for
+each step. 
+\end{description}
+
+\smallskip
+\noindent
+\emph{Note:} If you need any summation formulas for this problem, you are allowed to
+look them up, and do not need to prove.
+
+\begin{tabbing}
+aa \= aa \= aa \= aa \= aa \= aa \= \kill
+\textbf{Algorithm} \textsc{PrintZs} $(n: \mbox{\bf integer})$ \\
+      \> \textbf{for} $i \leftarrow 1$ \textbf{to} $3n+1$
+                         \textbf{do} \\
+      \> \> \textbf{for} $j \leftarrow 1$ \textbf{to} $i^2+2$ \textbf{do} print(``Z")
+\end{tabbing}
+
+\begin{solution}
+\\ \\ (a) The inner loop makes $i^2+2$ iterations for every $i$ in the outer loop. Therefore, we can represent the number of printed Zs as  $\sum_{i=1}^{3n+1} (i^2+2)$. \\
+\\ (b) Solving the summation: 
+\begin{tabbing}
+aa \= aa \= aa \= aa \= aa \= aa \= \kill
+$\sum_{i=1}^{3n+1} (i^2+2)  = \sum_{i=1}^{3n+1} i^2 +  \sum_{i=1}^{3n+1} 2$\\
+\> \> \> \> \> $= \frac{(3n+1)(3n+2)(6n+3)}{6} + 2(3n+1)$ \\
+\> \> \> \> \> $= 9n^3 + \frac{27}{2}n^2 + \frac{25}{2}n + 3$. \\
+\end{tabbing}
+\textbf{Explanation}: We must first separate the sum into two different sums, one containing the variable $i^2$ and the other containing the constant $2$. Using the sum of consecutive squares $(\sum_{i=1}^{m} (i^2) = \frac{m(m+1)(2m+1)}{6})$, we substitute $3n+1$ for $m$, then carry out the algebraic steps. \\
+\\ (c) In the above polynomial, we see that the largest term is $9n^3$. Therefore, the number of Zs printed is $\Theta(n^3)$. \\
+\end{solution}
+
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Consider a sequence defined recursively as
+$B_0 = 2$, $B_1 = 5$, and $B_n = 3B_{n-1}+B_{n-2}$ for
+$n\ge 2$. Prove that $B_n = O(3.4^n)$ and $B_n = \Omega(3.3^n)$.
+
+\smallskip
+\noindent
+\emph{Hint:} 
+First, prove by induction that $3.3^n \le B_n \le 2(3.4)^n$ for all $n\ge 0$.
+
+\begin{solution}
+\\We start by demonstrating by induction that $B_n \ge 3.3^n$. \\
+\\ Base case:
+\\ For $n = 0$: $B_0 = 2 \ge 1 = 3.3^0$
+\\ For $n = 1$: $B_1 = 5 \ge 3.3 = 3.3^1$ 
+\\ The inequality holds true for both $n = 0$ and $n = 1$.
+\\
+\\ Inductive step:
+\\ Let $k \ge 2$ and assume $B_n \ge 3.3^n$ $\forall$ $ n < k $ and $B_k \ge 3.3^k$.
+\begin{tabbing}
+aa \= aa \= aa \= aa \= aa \= aa \= \kill
+$B_k$ \> \>$=$ $3B_{k-1} + B_{k-2}$ \\
+\>  \>$\ge 3(3.3^{k-1}) + 3.3^{k-2}$  (by previous assumption) \\
+\> \>$= (3.3^{k-2})(3 \times 3.3^1 + 1)$  (distributive property) \\
+\> \>$= (3.3^{k-2})(10.9)$ \\
+\> \>$\ge (3.3^{k-2})(3.3^2)$ \\
+\> \>$= 3.3^k$
+\end{tabbing}
+Therefore, the inequality holds true for $n=k $, proving our claim. \\
+\\ We must next demonstrate by induction that $B_n \le 2 \times 3.4^n$. \\
+\\ Base case:
+\\ For $n = 0$: $B_0 = 2 \le 2 \times 3.4^0$
+\\ For $n = 1$: $B_1 = 5 \le 2 \times 3.4^1$ 
+\\ The inequality holds true for both $n = 0$ and $n = 1$.
+\\
+\\ Inductive step:
+\\ Let $k \ge 2$ and assume $B_n \le 2 \times 3.4^n$ $\forall$ $ n < k $ and $B_k \le 2 \times 3.4^k$. 
+\begin{tabbing}
+aa \= aa \= aa \= aa \= aa \= aa \= \kill
+$B_k$ \> \>$=$ $3B_{k-1} + B_{k-2}$ \\
+\> \> $\le 3 \times 2(3.4^{k-1}) + 2(3.4^{k-2})$ (by previous assumption) \\
+\> \> $= (2 \times 3.4^{k-2})(3 \times 3.4^1 +1)$ (distributive property) \\
+\> \>  $= (2 \times 3.4^{k-2})(11.2)$ \\
+\> \> $= \le (2 \times 3.4^{k-2})(3.4^2)$ \\
+\> \> $= 3.4^k$
+\end{tabbing}
+Therefore, the inequality holds true for $n=k $, proving our claim. \\
+\\ Thus, we proved that $3.3^n \le B_n \le 2 \times 3.4^n$ $\forall$ $n \ge 0$, which in turn implies that $B_n = O(3.4^n)$ and $B_n = \Omega(3.3^n)$ .
+
+\end{solution}
+
+\end{problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Give the asymptotic values of the
+following functions, using the $\Theta$-notation:
+%
+\begin{description}
+%
+\item{(a)} $\half n^5 + 7 n^4 - n^3 + 13n$
+\item{(b)} $3 + 2n^{-2} + 1/(\log^2 n)$
+\item{(c)} $n ( 7n^3\log n + 9 n\log^5n) + 15n^3$
+\item{(d)} $n^2 2^n + 13n^4 + n^3\log n$
+\item{(e)} $n^53^n + n4^n$
+%
+\end{description}
+%
+Justify your answer.
+%(Here, you don't need to give a complete rigorous proof.
+%Give only an informal explanation using asymptotic
+%relations between the functions $n^c$, $\log n$, and $c^n$.)
+
+\begin{solution}
+\\
+\\ (a) $\half n^5 + 7n - n^3 + 13n = \Theta(n^5)$
+\\ \textbf{Explanation}: Because this is a polynomial, we simply take into consideration the term with the highest degree, $\half n^5$. \\
+\\ (b)  $3 + 2n^{-2} + 1/(\log^2 n) = \Theta(1)$
+\\ \textbf{Explanation}: $2n^{-2}$ and $1/(\log^2 n)$ both decrease at some rate $n$. Therefore, the entire equation approaches 3 as $n \rightarrow \infty$ and will always be greater than or equal to 3, unless $n = 0$.  Because this value is a constant, $3 + 2n^{-2} + 1/(\log^2 n) = \Theta(1)$. \\
+\\ (c) $n ( 7n^3\log n + 9 n\log^5n) + 15n^3 = \Theta(n^4 \log n)$
+\\ \textbf{Explanation}: Distributing $n$, the equation becomes $7n^4\log n + 9 n^2 \log^5n + 15n^3$. We immediately observe that $7n^4\log n$ is a greater value than $15n^3$. To compare $7n^4\log n$ and $9 n^2 \log^5n$, we must first ignore the constant coefficients, which leaves us with  $n^4\log n$ and $n^2 \log^5n$. Dividing both by $n^2 \log n$ gives us $n^2$ and $\log^5 n$. Since $n^2$ grows faster than $\log^5 n$, the term $7n^4\log n$ is the one that dominates the rest. Thus, $n ( 7n^3\log n + 9 n\log^5n) + 15n^3 = \Theta(n^4 \log n)$. \\
+\\ (d)  $n^2 2^n + 13n^4 + n^3\log n = \Theta(n^2 2^n)$
+\\ \textbf{Explanation}: We can right away see that $13n^4$ dominates $n^3\log n$. To compare  $13n^4$ and $n^2 2^n$, we first ignore constant coefficients, then divide bot terms by $n^2$, which gives us $n^2$ and $2^n$. Because $2^n$ grows faster than $n^2$, the term $n^2 2^n$ dominates the equation. Thus, $n^2 2^n + 13n^4 + n^3\log n = \Theta(n^2 2^n)$. \\
+\\ (e) $n^53^n + n4^n = \Theta(n4^n)$ 
+\\ \textbf{Explanation}: By dividing the terms by $n3^n$, we are left with $n^4$ and $(\frac{4}{3})^n$. Because $(\frac{4}{3})^n$ grows faster than $n^4$, the term $n4^n$ dominates. Thus, $n^53^n + n4^n = \Theta(n4^n)$.
+
+\end{solution}
+
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vskip 0.1in
+\paragraph{Submission.}
+To submit the homework, you need to upload the pdf file into ilearn and Gradescope by 8AM on Thursday, October~16,
+and turn-in a paper copy in class.
+
+\paragraph{Reminders.}
+Remember that only {\LaTeX} papers are accepted. 
+
+
+\end{document}
+
